@@ -1,0 +1,14 @@
+* Hang man notes:
+** I want to have a list of lots of words, where each game a new one is selected randomly.
+** The player gets so many chances to guess and then they die.
+** Can make a Letter class that extends JButton, that's used to represent the available buttons in the game.
+* Board layout
+| <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <Vert. sep> | <Hang topleft> | <Hang topmid>         | <Hang topright> |
+| <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <Vert. sep> | <Head left>    | <Head right>          | <Hang post>     |
+| <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <Vert. sep> | <Torso left>   | <Torso right>         | <Hang post>     |
+| <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <N>      | <Vert. sep> | <Legs left>    | <Legs right>          | <Hang base>     |
+| <letter> | <letter> | <letter> | <letter> | <letter> | <letter> | <letter> | <letter> | <letter> | <Vert. sep> | <N>            | <N>                   |                 |
+| A        | B        | C        | D        | E        | F        | G        | H        | I        | <Vert. sep> | <N>            | <N>                   |                 |
+| K        | K        | L        | M        | N        | O        | P        | Q        | R        | <Vert. sep> | <N>            | <N>                   |                 |
+| S        | T        | U        | V        | W        | X        | Y        | Z        |          | <Vert. sep> |                | <Quit (Span 3 cols?)> |                 |
+** TODO Just make the hang post thing a few larger images that span multiple rows/cols?
