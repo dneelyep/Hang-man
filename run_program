@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd bin/
+java com.hang_man.game.MainGUI
+cd - > /dev/null
