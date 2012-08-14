@@ -12,8 +12,17 @@ public class Letter extends JButton {
     private char letter;
 
     /** Create a new Letter object, with letter newLetter */
-    public Letter(char newLetter) {
-	super(new ImageIcon(newLetter + ".png"));
-	setRolloverIcon(new ImageIcon(newLetter + "Rollover.png"));
+    public Letter(char newLetter, MainGUI gui) {
+	super(Character.toString(newLetter));
+	//	super(new ImageIcon(newLetter + ".png"));
+	letter = newLetter;
+	setRolloverIcon(new ImageIcon(letter + "Rollover.png"));
+	setActionCommand(Character.toString(letter));
+	addActionListener(gui);
+    }
+
+    /** Get the character this Letter represents. */
+    public char getLetter() {
+	return letter;
     }
 }
