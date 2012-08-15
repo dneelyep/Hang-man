@@ -22,7 +22,30 @@ import java.util.Random;
  *                 state changes.
  *
  * @author Daniel Neel */
-public class MainGUI extends JFrame implements ActionListener { 
+public class MainGUI extends JFrame implements ActionListener {
+
+    /** wordLetter*: A series of letters used to indicate the word
+     *               the player is attempting to guess.*/
+    private JLabel wordLetter1 = new JLabel("_");
+    private JLabel wordLetter2 = new JLabel("_");
+    private JLabel wordLetter3 = new JLabel("_");
+    private JLabel wordLetter4 = new JLabel("_");
+    private JLabel wordLetter5 = new JLabel("_");
+    private JLabel wordLetter6 = new JLabel("_");
+    private JLabel wordLetter7 = new JLabel("_");
+    private JLabel wordLetter8 = new JLabel("_");
+    private JLabel wordLetter9 = new JLabel("_");
+    
+    /** An array that holds all the labels used to display a word. */
+    private JLabel[] wordLabels = {wordLetter1,
+				   wordLetter2,
+				   wordLetter3,
+				   wordLetter4,
+				   wordLetter5,
+				   wordLetter6,
+				   wordLetter7,
+				   wordLetter8,
+				   wordLetter9};
 
     /** Panel that acts as a container to hold all 
      *  other GUI components. */
@@ -91,16 +114,17 @@ public class MainGUI extends JFrame implements ActionListener {
 	addComponent(rightFoot, 11, 3, topPanel, constraints);
 	addComponent(new JLabel(new ImageIcon("../images/nooseBase.png")),  12, 3, topPanel, constraints);
 
-	addComponent(new JLabel("X"), 0, 4, topPanel, constraints);
-	addComponent(new JLabel("X"), 1, 4, topPanel, constraints);
-	addComponent(new JLabel("X"), 2, 4, topPanel, constraints);
-	addComponent(new JLabel("X"), 3, 4, topPanel, constraints);
-	addComponent(new JLabel("X"), 4, 4, topPanel, constraints);
-	addComponent(new JLabel("X"), 5, 4, topPanel, constraints);
-	addComponent(new JLabel("X"), 6, 4, topPanel, constraints);
-	addComponent(new JLabel("X"), 7, 4, topPanel, constraints);
-	addComponent(new JLabel("X"), 8, 4, topPanel, constraints);
+	addComponent(wordLetter1, 0, 3, topPanel, constraints);
+	addComponent(wordLetter2, 1, 3, topPanel, constraints);
+	addComponent(wordLetter3, 2, 3, topPanel, constraints);
+	addComponent(wordLetter4, 3, 3, topPanel, constraints);
+	addComponent(wordLetter5, 4, 3, topPanel, constraints);
+	addComponent(wordLetter6, 5, 3, topPanel, constraints);
+	addComponent(wordLetter7, 6, 3, topPanel, constraints);
+	addComponent(wordLetter8, 7, 3, topPanel, constraints);
+	addComponent(wordLetter9, 8, 3, topPanel, constraints);
 
+	// TODO: Switch this to a large vertical separator.
 	addComponent(new JLabel("|"), 9, 4, topPanel, constraints);
 
 	addComponent(new Letter('A', this), 0, 5, topPanel, constraints);
@@ -160,6 +184,7 @@ public class MainGUI extends JFrame implements ActionListener {
 
 	try {
 	    BufferedReader reader = new BufferedReader(new FileReader("../src/com/hang_man/game/wordList.txt"));
+
 	    // Variable to count the number of lines in the file we're reading.
 	    int fileLength = 0;
 
@@ -168,6 +193,8 @@ public class MainGUI extends JFrame implements ActionListener {
 
 	    // TODO: Ideal code layout:
 	    // TODO: Break sub-parts into methods here.
+	    // TODO: Another possible way of doing this: On the first read of the file,
+	    //       store each line in a string array. Then, select a random item in that array.
 	    Random roller = new Random();
 
 	    // roller.nextInt(fileLength) + 1 contains a random number
@@ -177,6 +204,7 @@ public class MainGUI extends JFrame implements ActionListener {
 	    int desiredWordLine = roller.nextInt(fileLength) + 1;
 
 	    // Reset the file reader to start reading from the first line.
+	    reader.close();
 	    reader = new BufferedReader(new FileReader("../src/com/hang_man/game/wordList.txt"));
 
 	    // This will land me on the correct line in the file.
@@ -188,6 +216,7 @@ public class MainGUI extends JFrame implements ActionListener {
 		    reader.readLine();
 	    }
 	    System.out.println("New word: " + word);
+	    reader.close();
 
 	} catch (FileNotFoundException e) {
 	    System.out.println("File not found.");
@@ -195,8 +224,24 @@ public class MainGUI extends JFrame implements ActionListener {
 	    System.out.println("IOException.");
 	}
 
-	for (int i = 0; i < word.length(); i++) {
-	    //	    System.out.println(word.charAt(i));
+	// Draw the word on the board.
+	drawWord(word);
+    }
+
+    /** Given a string desiredWord, draw the relevant amount of empty
+     *  spaces for that word on the board. */
+    public void drawWord(String desiredWord) {
+	System.out.println(desiredWord.length());
+	for (int i = 0; i < 9; i++) {
+	    if (i < desiredWord.length()) {
+		System.out.println(desiredWord.charAt(i));
+	    }
+
+	    // Make the character's label empty.
+	    else {
+		wordLabels[i].setText("");
+		System.out.println("Blah.");
+	    }
 	}
     }
 
