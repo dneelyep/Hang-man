@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -48,26 +49,42 @@ public class MainGUI extends JFrame implements ActionListener {
     private void initControls() {
 	add(topPanel);
 
+	JLabel faceLeft   = new JLabel(new ImageIcon("../images/faceLeft.png"));
+	JLabel faceRight  = new JLabel(new ImageIcon("../images/faceRight.png"));
+	JLabel torsoLeft  = new JLabel(new ImageIcon("../images/torsoLeft.png"));
+	JLabel torsoRight = new JLabel(new ImageIcon("../images/torsoRight.png"));
+	JLabel leftFoot   = new JLabel(new ImageIcon("../images/leftFoot.png"));
+	JLabel rightFoot  = new JLabel(new ImageIcon("../images/rightFoot.png"));
+
+	// Since the player hasn't made any mistakes yet, the cartoon being hanged
+	// is not yet visible.
+	faceLeft.setVisible(false);
+	faceRight.setVisible(false);
+	torsoLeft.setVisible(false);
+	torsoRight.setVisible(false);
+	leftFoot.setVisible(false);
+	rightFoot.setVisible(false);	
+
 	GridBagConstraints constraints = new GridBagConstraints();
-	addComponent(new JLabel("|"),                    9, 0, topPanel, constraints);
-	addComponent(new JLabel("Topleft of gallows"),  10, 0, topPanel, constraints);
-	addComponent(new JLabel("Topmid of gallows"),   11, 0, topPanel, constraints);
-	addComponent(new JLabel("Topright of gallows"), 12, 0, topPanel, constraints);
+	addComponent(new JLabel("|"), 9, 0, topPanel, constraints);
+	addComponent(new JLabel(new ImageIcon("../images/nooseTopLeft.png")),   10, 0, topPanel, constraints);
+	addComponent(new JLabel(new ImageIcon("../images/nooseTopMid.png")),    11, 0, topPanel, constraints);
+	addComponent(new JLabel(new ImageIcon("../images/nooseTopCorner.png")), 12, 0, topPanel, constraints);
 
-	addComponent(new JLabel("|"),                   9, 1, topPanel, constraints);
-	addComponent(new JLabel("Left of head"),       10, 1, topPanel, constraints);
-	addComponent(new JLabel("Right of head"),      11, 1, topPanel, constraints);
-	addComponent(new JLabel("Gallows post right"), 12, 1, topPanel, constraints);
+	addComponent(new JLabel("|"), 9, 1, topPanel, constraints);
+	addComponent(faceLeft, 10, 1, topPanel, constraints);
+	addComponent(faceRight, 11, 1, topPanel, constraints);
+	addComponent(new JLabel(new ImageIcon("../images/nooseTopRight.png")), 12, 1, topPanel, constraints);
 
-	addComponent(new JLabel("|"),                   9, 2, topPanel, constraints);
-	addComponent(new JLabel("Left of torso"),      10, 2, topPanel, constraints);
-	addComponent(new JLabel("Right of torso"),     11, 2, topPanel, constraints);
-	addComponent(new JLabel("Gallows post right"), 12, 2, topPanel, constraints);
+	addComponent(new JLabel("|"), 9, 2, topPanel, constraints);
+	addComponent(torsoLeft, 10, 2, topPanel, constraints);
+	addComponent(torsoRight, 11, 2, topPanel, constraints);
+	addComponent(new JLabel(new ImageIcon("../images/nooseRight.png")), 12, 2, topPanel, constraints);
 
 	addComponent(new JLabel("|"),              9, 3, topPanel, constraints);
-	addComponent(new JLabel("Left of legs"),  10, 3, topPanel, constraints);
-	addComponent(new JLabel("Right of legs"), 11, 3, topPanel, constraints);
-	addComponent(new JLabel("Gallows base"),  12, 3, topPanel, constraints);
+	addComponent(leftFoot,  10, 3, topPanel, constraints);
+	addComponent(rightFoot, 11, 3, topPanel, constraints);
+	addComponent(new JLabel(new ImageIcon("../images/nooseBase.png")),  12, 3, topPanel, constraints);
 
 	addComponent(new JLabel("X"), 0, 4, topPanel, constraints);
 	addComponent(new JLabel("X"), 1, 4, topPanel, constraints);
@@ -135,6 +152,10 @@ public class MainGUI extends JFrame implements ActionListener {
      *  of hang man. */
     public void setGameWord() {
 	String word = "aoesntheoausntaheousntaheousnthaoeu";
+
+	// So I need a random word.
+	// First step: Make a small list of words.
+	// Next: Select a random word from that list, and set it as the game's word.
 
 	for (int i = 0; i < word.length(); i++) {
 	    //	    System.out.println(word.charAt(i));

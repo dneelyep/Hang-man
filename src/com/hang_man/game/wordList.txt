@@ -1,0 +1,8 @@
+ubuntu
+fedora
+debian
+archlinux
+linuxmint
+kubuntu
+java
+lisp
