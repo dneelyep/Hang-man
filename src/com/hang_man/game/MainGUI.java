@@ -2,6 +2,7 @@ package com.hang_man.game;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
@@ -15,6 +16,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import java.util.Random;
 
 /** MainGUI.java - Main class for the hang man game. This class
@@ -34,6 +38,18 @@ public class MainGUI extends JFrame implements ActionListener {
 
     /** The word that the player has to guess to win the game. */
     private String word;
+
+    /** The number of games this player has won. */
+    private int wins = 0;
+
+    /** The number of games this player has lost. */
+    private int losses = 0;
+
+    /** The widget that displays the player's win count. */
+    private JTextField winsLabel = new JTextField(Integer.toString(wins));
+
+    /** The widget that displays the player's loss count. */
+    private JTextField lossesLabel = new JTextField(Integer.toString(losses));
 
     /** wordLetter*: A series of letters used to indicate the word
      *               the player is attempting to guess.*/
@@ -72,6 +88,40 @@ public class MainGUI extends JFrame implements ActionListener {
      *  other GUI components. */
     private JPanel topPanel = new JPanel(new GridBagLayout());
 
+    /** All the letters that players can click on to guess part of the word. */
+    private Letter a = new Letter('a', this);
+    private Letter b = new Letter('b', this);
+    private Letter c = new Letter('c', this);
+    private Letter d = new Letter('d', this);
+    private Letter e = new Letter('e', this);
+    private Letter f = new Letter('f', this);
+    private Letter g = new Letter('g', this);
+    private Letter h = new Letter('h', this);
+    private Letter i = new Letter('i', this);
+    private Letter j = new Letter('j', this);
+    private Letter k = new Letter('k', this);
+    private Letter l = new Letter('l', this);
+    private Letter m = new Letter('m', this);
+    private Letter n = new Letter('n', this);
+    private Letter o = new Letter('o', this);
+    private Letter p = new Letter('p', this);
+    private Letter q = new Letter('q', this);
+    private Letter r = new Letter('r', this);
+    private Letter s = new Letter('s', this);
+    private Letter t = new Letter('t', this);
+    private Letter u = new Letter('u', this);
+    private Letter v = new Letter('v', this);
+    private Letter w = new Letter('w', this);
+    private Letter x = new Letter('x', this);
+    private Letter y = new Letter('y', this);
+    private Letter z = new Letter('z', this);
+
+    /** All the letters you can click on, put into
+     *  an array for convenient looping. */
+    private Letter[] letters = {a, b, c, d, e, f, g, h, i, j,
+				k, l, m, n, o, p, q, r, s, t,
+				u, v, w, x, y, z};
+    
     /** When the game is started, create a new MainGUI
      *  to set up GUI components. */
     public static void main(String args[]) {
@@ -98,6 +148,10 @@ public class MainGUI extends JFrame implements ActionListener {
     private void initControls() {
 	add(topPanel);
 
+	// Player shouldn't be able to edit the # of times they've won.
+	winsLabel.setEditable(false);
+	lossesLabel.setEditable(false);
+
 	// Since the player hasn't made any mistakes yet, the cartoon being hanged
 	// is not yet visible.
 	faceLeft.setVisible(false);
@@ -108,22 +162,18 @@ public class MainGUI extends JFrame implements ActionListener {
 	rightFoot.setVisible(false);	
 
 	GridBagConstraints constraints = new GridBagConstraints();
-	addComponent(new JLabel("|"), 9, 0, topPanel, constraints);
 	addComponent(new JLabel(new ImageIcon("../images/nooseTopLeft.png")),   10, 0, topPanel, constraints);
 	addComponent(new JLabel(new ImageIcon("../images/nooseTopMid.png")),    11, 0, topPanel, constraints);
 	addComponent(new JLabel(new ImageIcon("../images/nooseTopCorner.png")), 12, 0, topPanel, constraints);
 
-	addComponent(new JLabel("|"), 9, 1, topPanel, constraints);
 	addComponent(faceLeft, 10, 1, topPanel, constraints);
 	addComponent(faceRight, 11, 1, topPanel, constraints);
 	addComponent(new JLabel(new ImageIcon("../images/nooseTopRight.png")), 12, 1, topPanel, constraints);
 
-	addComponent(new JLabel("|"), 9, 2, topPanel, constraints);
 	addComponent(torsoLeft, 10, 2, topPanel, constraints);
 	addComponent(torsoRight, 11, 2, topPanel, constraints);
 	addComponent(new JLabel(new ImageIcon("../images/nooseRight.png")), 12, 2, topPanel, constraints);
 
-	addComponent(new JLabel("|"),              9, 3, topPanel, constraints);
 	addComponent(leftFoot,  10, 3, topPanel, constraints);
 	addComponent(rightFoot, 11, 3, topPanel, constraints);
 	addComponent(new JLabel(new ImageIcon("../images/nooseBase.png")),  12, 3, topPanel, constraints);
@@ -138,49 +188,58 @@ public class MainGUI extends JFrame implements ActionListener {
 	addComponent(wordLetter8, 7, 3, topPanel, constraints);
 	addComponent(wordLetter9, 8, 3, topPanel, constraints);
 
-	// TODO: Switch this to a large vertical separator.
-	addComponent(new JLabel("|"), 9, 4, topPanel, constraints);
+	// Add the vertical separator between the board and win stats.
+	constraints.gridheight = 8;
+	constraints.fill = GridBagConstraints.VERTICAL;
+	constraints.insets = new Insets(0, 20, 0, 20);
+	constraints.gridx = 9;
+	constraints.gridy = 0;
+	topPanel.add(new JSeparator(SwingConstants.VERTICAL), constraints);
+	constraints.gridheight = 1;
+	constraints.insets = new Insets(2, 2, 2, 2);
 
-	addComponent(new Letter('a', this), 0, 5, topPanel, constraints);
-	addComponent(new Letter('b', this), 1, 5, topPanel, constraints);
-	addComponent(new Letter('c', this), 2, 5, topPanel, constraints);
-	addComponent(new Letter('d', this), 3, 5, topPanel, constraints);
-	addComponent(new Letter('e', this), 4, 5, topPanel, constraints);
-	addComponent(new Letter('f', this), 5, 5, topPanel, constraints);
-	addComponent(new Letter('g', this), 6, 5, topPanel, constraints);
-	addComponent(new Letter('h', this), 7, 5, topPanel, constraints);
-	addComponent(new Letter('i', this), 8, 5, topPanel, constraints);
+	addComponent(a, 0, 5, topPanel, constraints);
+	addComponent(b, 1, 5, topPanel, constraints);
+	addComponent(c, 2, 5, topPanel, constraints);
+	addComponent(d, 3, 5, topPanel, constraints);
+	addComponent(e, 4, 5, topPanel, constraints);
+	addComponent(f, 5, 5, topPanel, constraints);
+	addComponent(g, 6, 5, topPanel, constraints);
+	addComponent(h, 7, 5, topPanel, constraints);
+	addComponent(i, 8, 5, topPanel, constraints);
 
-	addComponent(new JLabel("|"), 9, 5, topPanel, constraints);
+	addComponent(j, 0, 6, topPanel, constraints);
+	addComponent(k, 1, 6, topPanel, constraints);
+	addComponent(l, 2, 6, topPanel, constraints);
+	addComponent(m, 3, 6, topPanel, constraints);
+	addComponent(n, 4, 6, topPanel, constraints);
+	addComponent(o, 5, 6, topPanel, constraints);
+	addComponent(p, 6, 6, topPanel, constraints);
+	addComponent(q, 7, 6, topPanel, constraints);
+	addComponent(r, 8, 6, topPanel, constraints);
 
-	addComponent(new Letter('j', this), 0, 6, topPanel, constraints);
-	addComponent(new Letter('k', this), 1, 6, topPanel, constraints);
-	addComponent(new Letter('l', this), 2, 6, topPanel, constraints);
-	addComponent(new Letter('m', this), 3, 6, topPanel, constraints);
-	addComponent(new Letter('n', this), 4, 6, topPanel, constraints);
-	addComponent(new Letter('o', this), 5, 6, topPanel, constraints);
-	addComponent(new Letter('p', this), 6, 6, topPanel, constraints);
-	addComponent(new Letter('q', this), 7, 6, topPanel, constraints);
-	addComponent(new Letter('r', this), 8, 6, topPanel, constraints);
-
-	addComponent(new JLabel("|"), 9, 6, topPanel, constraints);
-
-	addComponent(new Letter('s', this), 0, 7, topPanel, constraints);
-	addComponent(new Letter('t', this), 1, 7, topPanel, constraints);
-	addComponent(new Letter('u', this), 2, 7, topPanel, constraints);
-	addComponent(new Letter('v', this), 3, 7, topPanel, constraints);
-	addComponent(new Letter('w', this), 4, 7, topPanel, constraints);
-	addComponent(new Letter('x', this), 5, 7, topPanel, constraints);
-	addComponent(new Letter('y', this), 6, 7, topPanel, constraints);
-	addComponent(new Letter('z', this), 7, 7, topPanel, constraints);
-
-	addComponent(new JLabel("|"), 9, 7, topPanel, constraints);
+	addComponent(s, 0, 7, topPanel, constraints);
+	addComponent(t, 1, 7, topPanel, constraints);
+	addComponent(u, 2, 7, topPanel, constraints);
+	addComponent(v, 3, 7, topPanel, constraints);
+	addComponent(w, 4, 7, topPanel, constraints);
+	addComponent(x, 5, 7, topPanel, constraints);
+	addComponent(y, 6, 7, topPanel, constraints);
+	addComponent(z, 7, 7, topPanel, constraints);
 
 	constraints.gridwidth = 3;
 	constraints.fill = GridBagConstraints.HORIZONTAL;
 	JButton quit = new JButton("Quit");
 	quit.addActionListener(this);
 	addComponent(quit, 10, 7, topPanel, constraints);
+
+	constraints.gridwidth = 1;
+
+	addComponent(new JLabel("Wins:"), 10, 5, topPanel, constraints);
+	addComponent(new JLabel("Losses:"), 10, 6, topPanel, constraints);
+
+	addComponent(winsLabel, 12, 5, topPanel, constraints);
+	addComponent(lossesLabel, 12, 6, topPanel, constraints);
     }
 
     /** Helper method to add the given JComponent component 
@@ -203,7 +262,6 @@ public class MainGUI extends JFrame implements ActionListener {
 	    while (reader.readLine() != null)
 		fileLength++;
 
-	    // TODO: Ideal code layout:
 	    // TODO: Break sub-parts into methods here.
 	    // TODO: Another possible way of doing this: On the first read of the file,
 	    //       store each line in a string array. Then, select a random item in that array.
@@ -227,7 +285,6 @@ public class MainGUI extends JFrame implements ActionListener {
 		else
 		    reader.readLine();
 	    }
-	    System.out.println("New word: " + word);
 	    reader.close();
 
 	} catch (FileNotFoundException e) {
@@ -236,19 +293,15 @@ public class MainGUI extends JFrame implements ActionListener {
 	    System.out.println("IOException.");
 	}
 
-	// Draw the word on the board.
-	drawWord(word);
+	// Draw the blank spaces for the word on the board.
+	drawWordBlanks(word);
     }
 
     /** Given a string desiredWord, draw the relevant amount of empty
-     *  spaces for that word on the board. */
-    public void drawWord(String desiredWord) {
-	System.out.println(desiredWord.length());
+     *  spaces to the right of that word on the board. */
+    public void drawWordBlanks(String desiredWord) {
 	for (int i = 0; i < 9; i++) {
-	    if (i < desiredWord.length())
-		System.out.println(desiredWord.charAt(i));
-	    // Make the character's label empty.
-	    else
+	    if (i >= desiredWord.length())
 		wordLabels[i].setText("");
 	}
     }
@@ -264,31 +317,35 @@ public class MainGUI extends JFrame implements ActionListener {
 	// one of the available letters.
 	else {
 	    Letter src = (Letter) event.getSource();
-	    System.out.println(src.getLetter());
-	    guessLetter(src.getLetter());
-	    if (correctLettersGuessed == word.length()) {    
-		JOptionPane.showMessageDialog(topPanel, "You win!");
-	    }
+	    src.setEnabled(false);
+	    guessLetter(Character.toString(src.getLetter()));
 	}
     }
 
-    /** Given a char guess, see if that char occurs
+    /** Given a String guess, see if that String occurs
      *  in the word the player is attempting to guess.
      *  If it does, show the player that they're correct.
      *  otherwise, penalize the player. */
-    // TODO: Just take a String as a parameter instead?
-    public void guessLetter(char guess) {
-	if (word.indexOf(Character.toString(guess)) == -1 )
+    // TODO: Making the parameter a String cuts down dup. code, but
+    //       is semantically more confusing. Which to do?
+    public void guessLetter(String guess) {
+	if (word.indexOf(guess) == -1 )
 	    wrongGuess();
 	else {
-	    int index = word.indexOf(Character.toString(guess));
+	    int index = word.indexOf(guess);
 	    while (index != -1) {
 		correctLettersGuessed++;
-		System.out.println(index);
 		// Enable the guessed character at all correct indexes.
-		wordLabels[index].setText(Character.toString(guess));
-		index = word.indexOf(Character.toString(guess), index + 1);
+		wordLabels[index].setText(guess);
+		index = word.indexOf(guess, index + 1);
 	    }
+	}
+
+	if (correctLettersGuessed == word.length()) {
+	    wins++;
+	    winsLabel.setText(Integer.toString(wins));
+	    JOptionPane.showMessageDialog(topPanel, "You win!");
+	    resetBoard();
 	}
     }
 
@@ -299,20 +356,55 @@ public class MainGUI extends JFrame implements ActionListener {
 	if (wrongGuesses == 0) {
 	    faceLeft.setVisible(true);
 	    faceRight.setVisible(true);
+	    wrongGuesses++;
 	}
-	if (wrongGuesses == 1) {
+	else if (wrongGuesses == 1) {
 	    torsoLeft.setVisible(true);
-	    torsoRight.setVisible(true);
+	    wrongGuesses++;
 	}
 	else if (wrongGuesses == 2) {
-	    leftFoot.setVisible(true);
+	    torsoRight.setVisible(true);
+	    wrongGuesses++;
 	}
 	// Here the player loses. Only 4 wrong guesses are allowed.
 	else if (wrongGuesses == 3) {
-	    rightFoot.setVisible(true);
-	    JOptionPane.showMessageDialog(topPanel, "You lose!");
+	    leftFoot.setVisible(true);
+	    wrongGuesses++;
 	}
-	
-	wrongGuesses++;
+	else if (wrongGuesses == 4) {
+	    rightFoot.setVisible(true);
+	    // LEFTOFFHERE: Just added these extra pictures when the player dies.
+	    //              Is causing some bugs that I need to fix. I think
+	    //              resetBoard() now needs to do a faceLeft/Right.setIcon()
+	    //              back to their regular icons.
+	    faceLeft.setIcon(new ImageIcon("../images/faceLeftDead.png"));
+	    faceRight.setIcon(new ImageIcon("../images/faceRightDead.png"));
+	    losses++;
+	    lossesLabel.setText(Integer.toString(losses));
+	    JOptionPane.showMessageDialog(topPanel, "You lose! The word was " + word + ".");
+	    resetBoard();
+	}
+    }
+
+    /** Select a new word for the game, and reset all GUI components so that
+     *  the player can play another game. */
+    public void resetBoard() {
+	for (JLabel label : wordLabels)
+	    label.setText("_");
+
+	for (JButton button : letters)
+	    button.setEnabled(true);
+
+	faceLeft.setVisible(false);
+	faceRight.setVisible(false);
+	torsoLeft.setVisible(false);
+	torsoRight.setVisible(false);
+	leftFoot.setVisible(false);
+	rightFoot.setVisible(false);
+
+	wrongGuesses = 0;
+	correctLettersGuessed = 0;
+
+	setGameWord();
     }
 }
