@@ -4,6 +4,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -153,9 +157,26 @@ public class MainGUI extends JFrame implements ActionListener {
     public void setGameWord() {
 	String word = "aoesntheoausntaheousntaheousnthaoeu";
 
+	// LEFTOFFHERE: Implementing the random word selection. Now I can get words from the file.
+	//              The next step is to find the number of lines in a given file. Once I do
+	//              that, I can make a random roll, where the value of that roll determines
+	//              which line to get the word from.
 	// So I need a random word.
-	// First step: Make a small list of words.
 	// Next: Select a random word from that list, and set it as the game's word.
+	try {
+	    BufferedReader reader = new BufferedReader(new FileReader("../src/com/hang_man/game/wordList.txt"));
+	    String str = reader.readLine();
+	    System.out.println(str);
+	    System.out.println(reader.readLine());
+	    System.out.println(reader.readLine());
+	    System.out.println(reader.readLine());
+	    System.out.println(reader.readLine());
+	    System.out.println(reader.readLine());
+	} catch (FileNotFoundException e) {
+	    System.out.println("File not found.");
+	} catch (IOException e) {
+	    System.out.println("IOException.");
+	}
 
 	for (int i = 0; i < word.length(); i++) {
 	    //	    System.out.println(word.charAt(i));
