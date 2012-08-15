@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.util.Random;
 
 /** MainGUI.java - Main class for the hang man game. This class
  *                 handles setting up the GUI and coordinating game
@@ -157,21 +158,37 @@ public class MainGUI extends JFrame implements ActionListener {
     public void setGameWord() {
 	String word = "aoesntheoausntaheousntaheousnthaoeu";
 
-	// LEFTOFFHERE: Implementing the random word selection. Now I can get words from the file.
-	//              The next step is to find the number of lines in a given file. Once I do
-	//              that, I can make a random roll, where the value of that roll determines
-	//              which line to get the word from.
-	// So I need a random word.
-	// Next: Select a random word from that list, and set it as the game's word.
 	try {
 	    BufferedReader reader = new BufferedReader(new FileReader("../src/com/hang_man/game/wordList.txt"));
-	    String str = reader.readLine();
-	    System.out.println(str);
-	    System.out.println(reader.readLine());
-	    System.out.println(reader.readLine());
-	    System.out.println(reader.readLine());
-	    System.out.println(reader.readLine());
-	    System.out.println(reader.readLine());
+	    // Variable to count the number of lines in the file we're reading.
+	    int fileLength = 0;
+
+	    while (reader.readLine() != null)
+		fileLength++;
+
+	    // TODO: Ideal code layout:
+	    // TODO: Break sub-parts into methods here.
+	    Random roller = new Random();
+
+	    // roller.nextInt(fileLength) + 1 contains a random number
+	    // from 1 to the length of the file.
+	    // e.g. for a file with 10 lines, that expression would return
+	    //      random number between 1 and 10, inclousive.
+	    int desiredWordLine = roller.nextInt(fileLength) + 1;
+
+	    // Reset the file reader to start reading from the first line.
+	    reader = new BufferedReader(new FileReader("../src/com/hang_man/game/wordList.txt"));
+
+	    // This will land me on the correct line in the file.
+	    for (int i = 0; i < desiredWordLine; i++) {
+		// Set the game's word to the desired line of the file.
+		if (i == desiredWordLine - 1)
+		    word = reader.readLine();
+		else
+		    reader.readLine();
+	    }
+	    System.out.println("New word: " + word);
+
 	} catch (FileNotFoundException e) {
 	    System.out.println("File not found.");
 	} catch (IOException e) {
