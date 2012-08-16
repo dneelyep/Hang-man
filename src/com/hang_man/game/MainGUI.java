@@ -91,32 +91,32 @@ public class MainGUI extends JFrame implements ActionListener {
     private JPanel topPanel = new JPanel(new GridBagLayout());
 
     /** All the letters that players can click on to guess part of the word. */
-    private Letter a = new Letter('a', this);
-    private Letter b = new Letter('b', this);
-    private Letter c = new Letter('c', this);
-    private Letter d = new Letter('d', this);
-    private Letter e = new Letter('e', this);
-    private Letter f = new Letter('f', this);
-    private Letter g = new Letter('g', this);
-    private Letter h = new Letter('h', this);
-    private Letter i = new Letter('i', this);
-    private Letter j = new Letter('j', this);
-    private Letter k = new Letter('k', this);
-    private Letter l = new Letter('l', this);
-    private Letter m = new Letter('m', this);
-    private Letter n = new Letter('n', this);
-    private Letter o = new Letter('o', this);
-    private Letter p = new Letter('p', this);
-    private Letter q = new Letter('q', this);
-    private Letter r = new Letter('r', this);
-    private Letter s = new Letter('s', this);
-    private Letter t = new Letter('t', this);
-    private Letter u = new Letter('u', this);
-    private Letter v = new Letter('v', this);
-    private Letter w = new Letter('w', this);
-    private Letter x = new Letter('x', this);
-    private Letter y = new Letter('y', this);
-    private Letter z = new Letter('z', this);
+    private Letter a = new Letter('a', 0, 5, this);
+    private Letter b = new Letter('b', 1, 5, this);
+    private Letter c = new Letter('c', 2, 5, this);
+    private Letter d = new Letter('d', 3, 5, this);
+    private Letter e = new Letter('e', 4, 5, this);
+    private Letter f = new Letter('f', 5, 5, this);
+    private Letter g = new Letter('g', 6, 5, this);
+    private Letter h = new Letter('h', 7, 5, this);
+    private Letter i = new Letter('i', 8, 5, this);
+    private Letter j = new Letter('j', 0, 6, this);
+    private Letter k = new Letter('k', 1, 6, this);
+    private Letter l = new Letter('l', 2, 6, this);
+    private Letter m = new Letter('m', 3, 6, this);
+    private Letter n = new Letter('n', 4, 6, this);
+    private Letter o = new Letter('o', 5, 6, this);
+    private Letter p = new Letter('p', 6, 6, this);
+    private Letter q = new Letter('q', 7, 6, this);
+    private Letter r = new Letter('r', 8, 6, this);
+    private Letter s = new Letter('s', 0, 7, this);
+    private Letter t = new Letter('t', 1, 7, this);
+    private Letter u = new Letter('u', 2, 7, this);
+    private Letter v = new Letter('v', 3, 7, this);
+    private Letter w = new Letter('w', 4, 7, this);
+    private Letter x = new Letter('x', 5, 7, this);
+    private Letter y = new Letter('y', 6, 7, this);
+    private Letter z = new Letter('z', 7, 7, this);
 
     /** All the letters you can click on, put into
      *  an array for convenient looping. */
@@ -201,34 +201,34 @@ public class MainGUI extends JFrame implements ActionListener {
 	constraints.gridheight = 1;
 	constraints.insets = new Insets(2, 2, 2, 2);
 
-	addComponent(a, 0, 5, topPanel, constraints);
-	addComponent(b, 1, 5, topPanel, constraints);
-	addComponent(c, 2, 5, topPanel, constraints);
-	addComponent(d, 3, 5, topPanel, constraints);
-	addComponent(e, 4, 5, topPanel, constraints);
-	addComponent(f, 5, 5, topPanel, constraints);
-	addComponent(g, 6, 5, topPanel, constraints);
-	addComponent(h, 7, 5, topPanel, constraints);
-	addComponent(i, 8, 5, topPanel, constraints);
+	addComponent(a, topPanel, constraints);
+	addComponent(b, topPanel, constraints);
+	addComponent(c, topPanel, constraints);
+	addComponent(d, topPanel, constraints);
+	addComponent(e, topPanel, constraints);
+	addComponent(f, topPanel, constraints);
+	addComponent(g, topPanel, constraints);
+	addComponent(h, topPanel, constraints);
+	addComponent(i, topPanel, constraints);
 
-	addComponent(j, 0, 6, topPanel, constraints);
-	addComponent(k, 1, 6, topPanel, constraints);
-	addComponent(l, 2, 6, topPanel, constraints);
-	addComponent(m, 3, 6, topPanel, constraints);
-	addComponent(n, 4, 6, topPanel, constraints);
-	addComponent(o, 5, 6, topPanel, constraints);
-	addComponent(p, 6, 6, topPanel, constraints);
-	addComponent(q, 7, 6, topPanel, constraints);
-	addComponent(r, 8, 6, topPanel, constraints);
+	addComponent(j, topPanel, constraints);
+	addComponent(k, topPanel, constraints);
+	addComponent(l, topPanel, constraints);
+	addComponent(m, topPanel, constraints);
+	addComponent(n, topPanel, constraints);
+	addComponent(o, topPanel, constraints);
+	addComponent(p, topPanel, constraints);
+	addComponent(q, topPanel, constraints);
+	addComponent(r, topPanel, constraints);
 
-	addComponent(s, 0, 7, topPanel, constraints);
-	addComponent(t, 1, 7, topPanel, constraints);
-	addComponent(u, 2, 7, topPanel, constraints);
-	addComponent(v, 3, 7, topPanel, constraints);
-	addComponent(w, 4, 7, topPanel, constraints);
-	addComponent(x, 5, 7, topPanel, constraints);
-	addComponent(y, 6, 7, topPanel, constraints);
-	addComponent(z, 7, 7, topPanel, constraints);
+	addComponent(s, topPanel, constraints);
+	addComponent(t, topPanel, constraints);
+	addComponent(u, topPanel, constraints);
+	addComponent(v, topPanel, constraints);
+	addComponent(w, topPanel, constraints);
+	addComponent(x, topPanel, constraints);
+	addComponent(y, topPanel, constraints);
+	addComponent(z, topPanel, constraints);
 
 	constraints.gridwidth = 3;
 	constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -252,6 +252,15 @@ public class MainGUI extends JFrame implements ActionListener {
 	gbc.gridy = y;
 	panel.add(component, gbc);
     }
+
+    /** Helper method to add the given Letter component 
+     *  to a panel at coordinates x, y. */
+    public void addComponent(Letter letter, JPanel panel, GridBagConstraints gbc) {
+	gbc.gridx = letter.getXCoord();
+	gbc.gridy = letter.getYCoord();
+	panel.add(letter, gbc);
+    }
+
 
     /** Set the word that will be guessed at for this game
      *  of hang man. */
@@ -379,10 +388,6 @@ public class MainGUI extends JFrame implements ActionListener {
 	}
 	else if (wrongGuesses == 4) {
 	    rightFoot.setVisible(true);
-	    // LEFTOFFHERE: Just added these extra pictures when the player dies.
-	    //              Is causing some bugs that I need to fix. I think
-	    //              resetBoard() now needs to do a faceLeft/Right.setIcon()
-	    //              back to their regular icons.
 	    faceLeft.setIcon(new ImageIcon("../images/faceLeftDead.png"));
 	    faceRight.setIcon(new ImageIcon("../images/faceRightDead.png"));
 	    losses++;
