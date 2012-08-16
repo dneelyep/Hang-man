@@ -43,6 +43,10 @@ public class MainGUI extends JFrame implements ActionListener {
 
     /** The number of games this player has won. */
     private int wins = 0;
+    // TODO: Maybe store win and loss info. in the JTextField instead? That should be
+    //       cleaner, rather than having a variable with state, and a separate graphical
+    //       representation of that state. Would be better to have one object that, when
+    //       when # of wins/losses changes, automatically updates the graphical representation.
 
     /** The number of games this player has lost. */
     private int losses = 0;
@@ -53,8 +57,8 @@ public class MainGUI extends JFrame implements ActionListener {
     /** The widget that displays the player's loss count. */
     private JTextField lossesLabel = new JTextField(Integer.toString(losses));
 
-    /** wordLetter*: A series of letters used to indicate the word
-     *               the player is attempting to guess.*/
+    /** wordLetter*: A series of letters used to indicate the letters in
+     *               the word the player is attempting to guess.*/
     private JLabel wordLetter1 = new JLabel("_");
     private JLabel wordLetter2 = new JLabel("_");
     private JLabel wordLetter3 = new JLabel("_");
@@ -195,40 +199,15 @@ public class MainGUI extends JFrame implements ActionListener {
 	constraints.gridheight = 8;
 	constraints.fill = GridBagConstraints.VERTICAL;
 	constraints.insets = new Insets(0, 20, 0, 20);
-	constraints.gridx = 9;
-	constraints.gridy = 0;
-	topPanel.add(new JSeparator(SwingConstants.VERTICAL), constraints);
+	addComponent(new JSeparator(SwingConstants.VERTICAL), 9, 0, topPanel, constraints);
+
 	constraints.gridheight = 1;
 	constraints.insets = new Insets(2, 2, 2, 2);
 
-	addComponent(a, topPanel, constraints);
-	addComponent(b, topPanel, constraints);
-	addComponent(c, topPanel, constraints);
-	addComponent(d, topPanel, constraints);
-	addComponent(e, topPanel, constraints);
-	addComponent(f, topPanel, constraints);
-	addComponent(g, topPanel, constraints);
-	addComponent(h, topPanel, constraints);
-	addComponent(i, topPanel, constraints);
-
-	addComponent(j, topPanel, constraints);
-	addComponent(k, topPanel, constraints);
-	addComponent(l, topPanel, constraints);
-	addComponent(m, topPanel, constraints);
-	addComponent(n, topPanel, constraints);
-	addComponent(o, topPanel, constraints);
-	addComponent(p, topPanel, constraints);
-	addComponent(q, topPanel, constraints);
-	addComponent(r, topPanel, constraints);
-
-	addComponent(s, topPanel, constraints);
-	addComponent(t, topPanel, constraints);
-	addComponent(u, topPanel, constraints);
-	addComponent(v, topPanel, constraints);
-	addComponent(w, topPanel, constraints);
-	addComponent(x, topPanel, constraints);
-	addComponent(y, topPanel, constraints);
-	addComponent(z, topPanel, constraints);
+	// Add all Letters (a-z) to the board.
+	for (Letter letter : letters) {
+	    addComponent(letter, topPanel, constraints);
+	}
 
 	constraints.gridwidth = 3;
 	constraints.fill = GridBagConstraints.HORIZONTAL;
