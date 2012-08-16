@@ -1,5 +1,6 @@
 package com.hang_man.game;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -9,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -146,6 +148,7 @@ public class MainGUI extends JFrame implements ActionListener {
     /** Create all controls that go in the interface, and place
      *  them inside this MainGUI. */
     private void initControls() {
+	topPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
 	add(topPanel);
 
 	// Player shouldn't be able to edit the # of times they've won.
@@ -293,7 +296,10 @@ public class MainGUI extends JFrame implements ActionListener {
 	    System.out.println("IOException.");
 	}
 
-	// Draw the blank spaces for the word on the board.
+	// TODO: Review places where I add a method call to the end of a method.
+	//       Is causing a lot of confusion, complexity I think. Rather than a
+	//       method doing one thing, they're doing one thing, then at the end calling
+	//       a method that does another thing, etc.
 	drawWordBlanks(word);
     }
 
@@ -401,6 +407,9 @@ public class MainGUI extends JFrame implements ActionListener {
 	torsoRight.setVisible(false);
 	leftFoot.setVisible(false);
 	rightFoot.setVisible(false);
+
+	faceLeft.setIcon(new ImageIcon("../images/faceLeft.png"));
+	faceRight.setIcon(new ImageIcon("../images/faceRight.png"));
 
 	wrongGuesses = 0;
 	correctLettersGuessed = 0;
